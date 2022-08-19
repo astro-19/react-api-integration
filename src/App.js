@@ -5,6 +5,7 @@ const App = () => {
 
   const [apiData, setApiData] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  // const [dishesData, setDishesData] = useState([]);
 
   const myStyle = {
     marginLeft: "10vh"
@@ -17,7 +18,7 @@ const App = () => {
       setApiData(json)
       setDataLoaded(true)
     });
-  });
+  }, []);
 
   if (!dataLoaded) return <div><h1 style={myStyle}> Please wait some time.... </h1></div>;
 
