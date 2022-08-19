@@ -6,6 +6,10 @@ const App = () => {
   const [apiData, setApiData] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
 
+  const myStyle = {
+    marginLeft: "10vh"
+  }
+
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
     .then((data) => data.json())
@@ -15,7 +19,7 @@ const App = () => {
     });
   });
 
-  if (!dataLoaded) return <div><h1> Please wait some time.... </h1></div>;
+  if (!dataLoaded) return <div><h1 style={myStyle}> Please wait some time.... </h1></div>;
 
   return (
     <>
@@ -28,6 +32,9 @@ const App = () => {
                   <th>Email</th>
                   <th>Address</th>
                   <th>Geolocation</th>
+                  <th>Phone</th>
+                  <th>Website</th>
+                  <th>Company</th>
                   </tr>
               {
                 apiData.map((item) => (
@@ -45,6 +52,13 @@ const App = () => {
                         LAT: {item.address.geo.lat},
                         LNG: {item.address.geo.lng}
                       </td>
+                      <td>{item.phone}</td>
+                      <td>{item.website}</td>
+                      <td>
+                        Name: {item.company.name},
+                        CatchPhrase: {item.company.catchPhrase},
+                        BS: {item.company.bs}
+                      </td>
                     </tr>
                 ))
               }
@@ -55,14 +69,3 @@ const App = () => {
 }
 
 export default App
-
-
-  // < ul key = { item.id } >
-  //   <li>
-  //     User_Name: {item.username},
-  //     Full_Name: {item.name},
-  //     User_Email: {item.email},
-  //     Address: {item.address.street}, {item.address.suite}, {item.address.city}, {item.address.zipcode}
-  //     Geo: {item.address.geo.lat}, {item.address.geo.lng}
-  //   </li>
-  //               </ >
