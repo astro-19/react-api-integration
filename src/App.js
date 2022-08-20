@@ -77,6 +77,30 @@ const App = () => {
               }
             </table>
         </div>
+
+        <div className = "App">
+            <h1> Fetch data from an api in react </h1>
+            <table>
+                  <tr>
+                  <th>Name</th>
+                  <th>Image</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Description</th>
+                  </tr>
+              {
+                dishesData.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.name}</td>
+                      <td>{item.image}</td>
+                      <td>{item.category}</td>
+                      <td>{item.price}</td>
+                      <td>{item.description}</td>
+                    </tr>
+                ))
+              }
+            </table>
+        </div>
     </>
   )
 }
