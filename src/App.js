@@ -5,10 +5,19 @@ const App = () => {
 
   const [apiData, setApiData] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
-  // const [dishesData, setDishesData] = useState([]);
+  const [dishesData, setDishesData] = useState([]);
 
   const myStyle = {
     marginLeft: "10vh"
+  }
+
+  const getDishes = async () => {
+    await fetch("http://localhost:3019/dishes")
+    .then((data) => data.json())
+    .then((json) => {
+      setDishesData(json)
+      setDataLoaded(true)
+    });
   }
 
   useEffect(() => {
@@ -18,6 +27,9 @@ const App = () => {
       setApiData(json)
       setDataLoaded(true)
     });
+
+    getDishes();
+
   }, []);
 
   if (!dataLoaded) return <div><h1 style={myStyle}> Please wait some time.... </h1></div>;
