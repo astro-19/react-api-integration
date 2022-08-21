@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios'
 import './App.css'
 
 const App = () => {
@@ -11,20 +12,21 @@ const App = () => {
     marginLeft: "10vh"
   }
 
+  const baseUrl = "http://localhost:3019"
+
   const getDishes = async () => {
-    await fetch("http://localhost:3019/dishes")
-    .then((data) => data.json())
-    .then((json) => {
-      setDishesData(json)
+    await axios.get(`${baseUrl}/dishes`)
+    .then(data => {
+      console.log(data.data)
+      setDishesData(data.data)
       setDataLoaded(true)
     });
   }
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-    .then((data) => data.json())
-    .then((json) => {
-      setApiData(json)
+    axios.get("https://jsonplaceholder.typicode.com/users")
+    .then(response => {
+      setApiData(response.data)
       setDataLoaded(true)
     });
 
