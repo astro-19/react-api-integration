@@ -4,7 +4,7 @@ import './App.css'
 
 const App = () => {
 
-  const [apiData, setApiData] = useState([]);
+  const [promotionData, setPromotionData] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [dishesData, setDishesData] = useState([]);
 
@@ -23,14 +23,24 @@ const App = () => {
     });
   }
 
-  useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/users")
-    .then(response => {
-      setApiData(response.data)
+  const getPromotions = async () => {
+    await axios.get(`${baseUrl}/promotions`)
+    .then(data => {
+      console.log(data.data)
+      setPromotionData(data.data)
       setDataLoaded(true)
-    });
+    })
+  }
+
+  useEffect(() => {
+    // axios.get("https://jsonplaceholder.typicode.com/users")
+    // .then(response => {
+    //   setApiData(response.data)
+    //   setDataLoaded(true)
+    // });
 
     getDishes();
+    getPromotions();
 
   }, []);
 
@@ -38,7 +48,7 @@ const App = () => {
 
   return (
     <>
-      <div className = "App">
+      {/* <div className = "App">
             <h1> Fetch data from an api in react </h1>
             <table>
                   <tr>
@@ -78,7 +88,7 @@ const App = () => {
                 ))
               }
             </table>
-        </div>
+        </div> */}
 
         <div className = "App">
             <h1> Fetch data from an api in react </h1>
@@ -98,6 +108,32 @@ const App = () => {
                       <td>{item.category}</td>
                       <td>{item.price}</td>
                       <td>{item.description}</td>
+                    </tr>
+                ))
+              }
+            </table>
+        </div>
+
+        <div className = "App">
+            <h1> Fetch data from an api in react </h1>
+            <table>
+                  <tr>
+                  <th>Name</th>
+                  <th>Image</th>
+                  <th>Label</th>
+                  <th>Price</th>
+                  <th>Description</th>
+                  <th>Featured</th>
+                  </tr>
+              {
+                promotionData.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.name}</td>
+                      <td>{item.image}</td>
+                      <td>{item.label}</td>
+                      <td>{item.price}</td>
+                      <td>{item.description}</td>
+                      <td>{item.featured}</td>
                     </tr>
                 ))
               }
