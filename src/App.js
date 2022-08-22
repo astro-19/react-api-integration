@@ -4,9 +4,10 @@ import './App.css'
 
 const App = () => {
 
-  const [promotionData, setPromotionData] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [promotionData, setPromotionData] = useState([]);
   const [dishesData, setDishesData] = useState([]);
+  const [leaderData, setLeadersData] = useState([]);
 
   const myStyle = {
     marginLeft: "10vh"
@@ -32,15 +33,20 @@ const App = () => {
     })
   }
 
+  const getLeaders = async () => {
+    await axios.get(`${baseUrl}/leaders`)
+    .then(data => {
+      console.log(data.data)
+      setLeadersData(data.data)
+      setDataLoaded(true)
+    })
+  }
+
   useEffect(() => {
-    // axios.get("https://jsonplaceholder.typicode.com/users")
-    // .then(response => {
-    //   setApiData(response.data)
-    //   setDataLoaded(true)
-    // });
 
     getDishes();
     getPromotions();
+    getLeaders();
 
   }, []);
 
@@ -48,47 +54,6 @@ const App = () => {
 
   return (
     <>
-      {/* <div className = "App">
-            <h1> Fetch data from an api in react </h1>
-            <table>
-                  <tr>
-                  <th>Name</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Address</th>
-                  <th>Geolocation</th>
-                  <th>Phone</th>
-                  <th>Website</th>
-                  <th>Company</th>
-                  </tr>
-              {
-                apiData.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.name}</td>
-                      <td>{item.username}</td>
-                      <td>{item.email}</td>
-                      <td>
-                        Street: {item.address.street},
-                        Suite: {item.address.suite},
-                        City: {item.address.city},
-                        Zipcode: {item.address.zipcode}
-                      </td>
-                      <td>
-                        LAT: {item.address.geo.lat},
-                        LNG: {item.address.geo.lng}
-                      </td>
-                      <td>{item.phone}</td>
-                      <td>{item.website}</td>
-                      <td>
-                        Name: {item.company.name},
-                        CatchPhrase: {item.company.catchPhrase},
-                        BS: {item.company.bs}
-                      </td>
-                    </tr>
-                ))
-              }
-            </table>
-        </div> */}
 
         <div className = "App">
             <h1> Fetch data from an api in react </h1>
@@ -133,12 +98,39 @@ const App = () => {
                       <td>{item.label}</td>
                       <td>{item.price}</td>
                       <td>{item.description}</td>
-                      <td>{item.featured}</td>
+                      <td>{item.featured ? 'true' : 'false'}</td>
                     </tr>
                 ))
               }
             </table>
         </div>
+
+        <div className = "App">
+            <h1> Fetch data from an api in react </h1>
+            <table>
+                  <tr>
+                  <th>Name</th>
+                  <th>Image</th>
+                  <th>Designation</th>
+                  <th>Abbr</th>
+                  <th>Description</th>
+                  <th>Featured</th>
+                  </tr>
+              {
+                leaderData.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.name}</td>
+                      <td>{item.image}</td>
+                      <td>{item.designation}</td>
+                      <td>{item.abbr}</td>
+                      <td>{item.description}</td>
+                      <td>{item.featured ? 'true' : 'false'}</td>
+                    </tr>
+                ))
+              }
+            </table>
+        </div>
+
     </>
   )
 }
