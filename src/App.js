@@ -9,14 +9,20 @@ const App = () => {
   const [dishesData, setDishesData] = useState([]);
   const [leaderData, setLeadersData] = useState([]);
 
-  const myStyle = {
-    marginLeft: "10vh"
-  }
+  // const myStyle = {
+  //   marginLeft: "10vh"
+  // }
 
-  const baseUrl = "http://localhost:3019"
+  const password = 'password';
+  const username = 'admin';
+
+  const baseUrl = "http://localhost:3019";
 
   const getDishes = async () => {
-    await axios.get(`${baseUrl}/dishes`)
+    await axios.get(`${baseUrl}/dishes`, { auth:{
+      username: username,
+      password: password
+    }})
     .then(data => {
       console.log(data.data)
       setDishesData(data.data)
@@ -25,7 +31,10 @@ const App = () => {
   }
 
   const getPromotions = async () => {
-    await axios.get(`${baseUrl}/promotions`)
+    await axios.get(`${baseUrl}/promotions`, { auth:{
+      username: username,
+      password: password
+    }})
     .then(data => {
       console.log(data.data)
       setPromotionData(data.data)
@@ -34,7 +43,10 @@ const App = () => {
   }
 
   const getLeaders = async () => {
-    await axios.get(`${baseUrl}/leaders`)
+    await axios.get(`${baseUrl}/leaders`, { auth:{
+      username: username,
+      password: password
+    }})
     .then(data => {
       console.log(data.data)
       setLeadersData(data.data)
@@ -48,9 +60,9 @@ const App = () => {
     getPromotions();
     getLeaders();
 
-  }, []);
+  });
 
-  if (!dataLoaded) return <div><h1 style={myStyle}> Please wait some time.... </h1></div>;
+  if (!dataLoaded) return <div className="spinner-3"></div>;
 
   return (
     <>
