@@ -9,20 +9,13 @@ const App = () => {
   const [dishesData, setDishesData] = useState([]);
   const [leaderData, setLeadersData] = useState([]);
 
-  // const myStyle = {
-  //   marginLeft: "10vh"
-  // }
-
-  const password = 'password';
-  const username = 'admin';
-
   const baseUrl = "http://localhost:3019";
 
   const getDishes = async () => {
     await axios.get(`${baseUrl}/dishes`, { auth:{
-      username: username,
-      password: password
-    }})
+      username: 'admin',
+      password: 'password'
+    }}, {withCredentials: true})
     .then(data => {
       console.log(data.data)
       setDishesData(data.data)
@@ -32,9 +25,9 @@ const App = () => {
 
   const getPromotions = async () => {
     await axios.get(`${baseUrl}/promotions`, { auth:{
-      username: username,
-      password: password
-    }})
+      username: 'admin',
+      password: 'password'
+    }}, {withCredentials: true})
     .then(data => {
       console.log(data.data)
       setPromotionData(data.data)
@@ -44,9 +37,9 @@ const App = () => {
 
   const getLeaders = async () => {
     await axios.get(`${baseUrl}/leaders`, { auth:{
-      username: username,
-      password: password
-    }})
+      username: 'admin',
+      password: 'password'
+    }},  {withCredentials: true})
     .then(data => {
       console.log(data.data)
       setLeadersData(data.data)
