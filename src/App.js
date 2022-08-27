@@ -21,7 +21,7 @@ const App = () => {
   // console.log(headers)
 
   const getDishes = async () => {
-    await axios.get(`${baseUrl}/dishes`, { headers: { 'Authorization': 'Basic ' + encodedToken } }, { withCredentials: true })
+    await axios.get(`${baseUrl}/dishes`, { headers: {'Authorization': `Basic ${encodedToken}`}})
       .then(data => {
         console.log(data.data)
         setDishesData(data.data)
