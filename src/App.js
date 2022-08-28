@@ -55,7 +55,7 @@ const App = () => {
 
   });
 
-  if (!dataLoaded) return <div className="spinner-3"></div>;
+  if (!dataLoaded) return <div className="spinner"></div>;
 
   return (
     <>
