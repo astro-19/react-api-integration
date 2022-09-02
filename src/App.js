@@ -17,17 +17,30 @@ const App = () => {
 
   const token = `${USERNAME}:${PASSWORD}`;
   const encodedToken = Buffer.from(token).toString('base64');
-  // const headers = { 'Authorization': 'Basic ' + encodedToken };
-  // console.log(headers)
+  // const header = { 'Authorization': 'Basic ' + encodedToken };
+  // console.log(header)
+
+  const AUTH_TOKEN = `Basic ${encodedToken}`
+
+  axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
   const getDishes = async () => {
-    await axios.get(`${baseUrl}/dishes`, { headers: {'Authorization': `Basic ${encodedToken}`}})
-      .then(data => {
+    await axios.get(`${baseUrl}/dishes`)
+        .then(data => {
         console.log(data.data)
         setDishesData(data.data)
         setDataLoaded(true)
       });
   }
+
+  // const getDishes = async () => {
+  //   await fetch(`${baseUrl}/dishes`, { headers: header })
+  //     .then(data => data.json())
+  //     .then((json) => {console.log(json);
+  //       setDishesData(json);
+  //       setDataLoaded(true)});
+  // }
+
 
   // const getPromotions = async () => {
   //   await axios.get(`${baseUrl}/promotions`, { headers: { 'Authorization': 'Basic ' + encodedToken } }, { withCredentials: true })
