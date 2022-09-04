@@ -7,6 +7,7 @@ const App = () => {
 
   const [dataLoaded, setDataLoaded] = useState(false);
   const [dishesData, setDishesData] = useState([]);
+
   // const [promotionData, setPromotionData] = useState([]);
   // const [leaderData, setLeadersData] = useState([]);
 
@@ -16,16 +17,17 @@ const App = () => {
   const PASSWORD = "password";
 
   const token = `${USERNAME}:${PASSWORD}`;
-  const encodedToken = Buffer.from(token).toString('base64');
-  // const header = { 'Authorization': 'Basic ' + encodedToken };
-  // console.log(header)
+  const encodedToken = Buffer.from(token).toString('base64')
 
+  const header = { 'Authorization': 'Basic ' + encodedToken };
+  console.log(header)
+   //header("Access-Control-Allow-Headers: *");
   const AUTH_TOKEN = `Basic ${encodedToken}`
 
   axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
   const getDishes = async () => {
-    await axios.get(`${baseUrl}/dishes`)
+    await axios.get(`${baseUrl}/dishes`, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*"} })
         .then(data => {
         console.log(data.data)
         setDishesData(data.data)
@@ -37,7 +39,7 @@ const App = () => {
   //   await fetch(`${baseUrl}/dishes`, { headers: header })
   //     .then(data => data.json())
   //     .then((json) => {
-          // console.log(json);
+  //       console.log(json);
   //       setDishesData(json);
   //       setDataLoaded(true)});
   // }
