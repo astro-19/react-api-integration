@@ -36,7 +36,8 @@ const App = () => {
   // const getDishes = async () => {
   //   await fetch(`${baseUrl}/dishes`, { headers: header })
   //     .then(data => data.json())
-  //     .then((json) => {console.log(json);
+  //     .then((json) => {
+          // console.log(json);
   //       setDishesData(json);
   //       setDataLoaded(true)});
   // }
