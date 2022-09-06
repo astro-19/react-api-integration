@@ -21,13 +21,20 @@ const App = () => {
 
   const header = { 'Authorization': 'Basic ' + encodedToken };
   console.log(header)
-   //header("Access-Control-Allow-Headers: *");
-  const AUTH_TOKEN = `Basic ${encodedToken}`
 
-  axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+  const AUTH_TOKEN = `Basic ${encodedToken}`
+  console.log(AUTH_TOKEN);
+
+  // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
   const getDishes = async () => {
-    await axios.get(`${baseUrl}/dishes`, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*"} })
+    await axios.get(`${baseUrl}/dishes`,
+    { headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    "Authorization": `${AUTH_TOKEN}`
+    }
+  })
         .then(data => {
         console.log(data.data)
         setDishesData(data.data)
