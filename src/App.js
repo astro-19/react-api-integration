@@ -19,8 +19,8 @@ const App = () => {
   const token = `${USERNAME}:${PASSWORD}`;
   const encodedToken = Buffer.from(token).toString('base64')
 
-  const header = { 'Authorization': 'Basic ' + encodedToken };
-  console.log(header)
+  // const header = { 'Authorization': 'Basic ' + encodedToken };
+  // console.log(header)
 
   const AUTH_TOKEN = `Basic ${encodedToken}`
   console.log(AUTH_TOKEN);
