@@ -8,8 +8,8 @@ const App = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [dishesData, setDishesData] = useState([]);
 
-  // const [promotionData, setPromotionData] = useState([]);
-  // const [leaderData, setLeadersData] = useState([]);
+  const [promotionData, setPromotionData] = useState([]);
+  const [leaderData, setLeadersData] = useState([]);
 
   const baseUrl = "http://localhost:3019";
 
@@ -19,24 +19,17 @@ const App = () => {
   const token = `${USERNAME}:${PASSWORD}`;
   const encodedToken = Buffer.from(token).toString('base64')
 
-  // const header = { 'Authorization': 'Basic ' + encodedToken };
-  // console.log(header)
-
   const AUTH_TOKEN = `Basic ${encodedToken}`
-  console.log(AUTH_TOKEN);
-
-  // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
   const getDishes = async () => {
     await axios.get(`${baseUrl}/dishes`,
-    { headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "*",
-    "Authorization": `${AUTH_TOKEN}`
-    }
-  })
-        .then(data => {
-        console.log(data.data)
+      {
+        headers: {
+          "Authorization": `${AUTH_TOKEN}`
+        }
+      })
+      .then(data => {
+        // console.log(data.data)
         setDishesData(data.data)
         setDataLoaded(true)
       });
@@ -52,31 +45,42 @@ const App = () => {
   // }
 
 
-  // const getPromotions = async () => {
-  //   await axios.get(`${baseUrl}/promotions`, { headers: { 'Authorization': 'Basic ' + encodedToken } }, { withCredentials: true })
-  //     .then(data => {
-  //       console.log(data.data)
-  //       setPromotionData(data.data)
-  //       setDataLoaded(true)
-  //     })
-  // }
+  const getPromotions = async () => {
+    await axios.get(`${baseUrl}/promotions`,
+      {
+        headers: {
+          "Authorization": `${AUTH_TOKEN}`
+        }
+      })
+      .then(data => {
+        console.log(data.data)
+        setPromotionData(data.data)
+        setDataLoaded(true)
+      })
+  }
 
-  // const getLeaders = async () => {
-  //   await axios.get(`${baseUrl}/leaders`, { headers: { 'Authorization': 'Basic ' + encodedToken } }, { withCredentials: true })
-  //     .then(data => {
-  //       console.log(data.data)
-  //       setLeadersData(data.data)
-  //       setDataLoaded(true)
-  //     })
-  // }
+  const getLeaders = async () => {
+    await axios.get(`${baseUrl}/leaders`,
+      {
+        headers: {
+          "Authorization": `${AUTH_TOKEN}`
+        }
+      })
+      .then(data => {
+        console.log(data.data)
+        setLeadersData(data.data)
+        setDataLoaded(true)
+      })
+  }
 
   useEffect(() => {
 
     getDishes();
-    // getPromotions();
-    // getLeaders();
+    getPromotions();
+    getLeaders();
 
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!dataLoaded) return <div className="spinner"></div>;
 
@@ -107,7 +111,7 @@ const App = () => {
         </table>
       </div>
 
-      {/* <div className="App">
+      <div className="App">
         <h1> Fetch data from an api in react </h1>
         <table>
           <tr>
@@ -157,7 +161,7 @@ const App = () => {
             ))
           }
         </table>
-      </div> */}
+      </div>
 
     </>
   )
