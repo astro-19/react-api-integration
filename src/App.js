@@ -5,6 +5,14 @@ import { Buffer } from 'buffer';
 
 const App = () => {
 
+  const btnStyles = {
+    width: '10rem',
+    height: '2rem',
+    backgroundColor: 'rgba(12, 123, 128)',
+    color: 'rgba(255, 255, 255)',
+    cursor: 'pointer'
+  }
+
   const [dataLoaded, setDataLoaded] = useState(false);
   const [dishesData, setDishesData] = useState([]);
 
@@ -35,14 +43,35 @@ const App = () => {
       });
   }
 
-  // const getDishes = async () => {
-  //   await fetch(`${baseUrl}/dishes`, { headers: header })
-  //     .then(data => data.json())
-  //     .then((json) => {
-  //       console.log(json);
-  //       setDishesData(json);
-  //       setDataLoaded(true)});
-  // }
+  const postDishes = async () => {
+    await axios.post(`${baseUrl}/dishes`, {
+      body: {
+        name: "Rasgulla",
+        image: "images/rasgulla.png",
+        category: "sweets",
+        price: 499,
+        description: "Bengali Sweet",
+        comments: [
+          {
+              rating: 5,
+              comment: "Imagine all the eatables, living in conFusion!",
+              author: "Nihal P"
+          }
+      ]
+      },
+      headers: {
+        'Content-Type' : 'application/json',
+        'Accept' : 'application/json',
+        "Authorization": `${AUTH_TOKEN}`
+      },
+      withCredentials: true,
+    })
+    .then((resData) => {
+      console.log(resData)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 
 
   const getPromotions = async () => {
@@ -53,7 +82,7 @@ const App = () => {
         }
       })
       .then(data => {
-        console.log(data.data)
+        // console.log(data.data)
         setPromotionData(data.data)
         setDataLoaded(true)
       })
@@ -67,7 +96,7 @@ const App = () => {
         }
       })
       .then(data => {
-        console.log(data.data)
+        // console.log(data.data)
         setLeadersData(data.data)
         setDataLoaded(true)
       })
@@ -109,6 +138,10 @@ const App = () => {
             ))
           }
         </table>
+
+        <button type="button" style={btnStyles} onClick={(e)=> {postDishes(e)}}>
+          POST Dishes
+        </button>
       </div>
 
       <div className="App">
