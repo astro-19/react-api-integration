@@ -40,7 +40,7 @@ const App = () => {
   const postDishes = async () => {
 
     await axios.post(`${baseUrl}/dishes`, {
-      body: [{
+      body: {
         name: "Rasgulla",
         image: "images/rasgulla.png",
         category: "sweets",
@@ -53,14 +53,14 @@ const App = () => {
             author: "Nihal P"
           }
         ]
-      }],
+      },
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': `${AUTH_TOKEN}`,
         'Access-Control-Allow-Origin': '*'
       },
-      withCredentials: true,
+      withCredentials: true
     })
       .then((resData) => setSuccessMessage(resData))
       .catch((err) => {
