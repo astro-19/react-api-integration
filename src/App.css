@@ -35,3 +35,32 @@
 }
 @keyframes s3 {to{transform: rotate(1turn)}}
 
+.post-btn {
+    width: 10rem;
+    height: 2rem;
+    background-color: rgba(12, 123, 128);
+    color: rgba(255, 255, 255);
+    cursor: pointer;
+    border-radius: 0.75rem;
+    border-style: none;
+  }
+
+.error {
+  color: #ff0000;
+  font-size: 19px;
+  border-radius: 10px;
+  width: 0 auto;
+  height: 1rem;
+  margin: 0 auto;
+  padding: 10px 10px;
+}
+
+.success {
+  color: #09f609;
+  font-size: 19px;
+  border-radius: 10px;
+  width: 0 auto;
+  height: 1rem;
+  margin: 0 auto;
+  padding: 10px 10px;
+}

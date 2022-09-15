@@ -5,13 +5,8 @@ import { Buffer } from 'buffer';
 
 const App = () => {
 
-  const btnStyles = {
-    width: '10rem',
-    height: '2rem',
-    backgroundColor: 'rgba(12, 123, 128)',
-    color: 'rgba(255, 255, 255)',
-    cursor: 'pointer'
-  }
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const [dataLoaded, setDataLoaded] = useState(false);
   const [dishesData, setDishesData] = useState([]);
@@ -44,8 +39,9 @@ const App = () => {
   }
 
   const postDishes = async () => {
+
     await axios.post(`${baseUrl}/dishes`, {
-      body: {
+      body: [{
         name: "Rasgulla",
         image: "images/rasgulla.png",
         category: "sweets",
@@ -53,24 +49,26 @@ const App = () => {
         description: "Bengali Sweet",
         comments: [
           {
-              rating: 5,
-              comment: "Imagine all the eatables, living in conFusion!",
-              author: "Nihal P"
+            rating: 5,
+            comment: "Imagine all the eatables, living in conFusion!",
+            author: "Nihal P"
           }
-      ]
-      },
+        ]
+      }],
       headers: {
-        'Content-Type' : 'application/json',
-        'Accept' : 'application/json',
-        "Authorization": `${AUTH_TOKEN}`
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${AUTH_TOKEN}`,
+        'Access-Control-Allow-Origin': '*'
       },
       withCredentials: true,
     })
-    .then((resData) => {
-      console.log(resData)
-    }).catch((err) => {
-      console.log(err)
-    })
+      .then((resData) => setSuccessMessage(resData))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          setError("You/'re not authorized")
+        }
+      });
   }
 
 
@@ -108,14 +106,13 @@ const App = () => {
     getPromotions();
     getLeaders();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!dataLoaded) return <div className="spinner"></div>;
 
   return (
     <>
-
       <div className="App">
         <h1> Fetch data from an api in react </h1>
         <table>
@@ -139,9 +136,17 @@ const App = () => {
           }
         </table>
 
-        <button type="button" style={btnStyles} onClick={(e)=> {postDishes(e)}}>
+        <button type="button" className="post-btn" onClick={(e) => { postDishes(e) }}>
           POST Dishes
         </button>
+        <div>
+          <div className="error">
+            {error}
+          </div>
+          <div className="success">
+            {successMessage}
+          </div>
+        </div>
       </div>
 
       <div className="App">
