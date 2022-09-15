@@ -32,7 +32,6 @@ const App = () => {
         }
       })
       .then(data => {
-        // console.log(data.data)
         setDishesData(data.data)
         setDataLoaded(true)
       });
@@ -66,7 +65,7 @@ const App = () => {
       .then((resData) => setSuccessMessage(resData))
       .catch((err) => {
         if (err.response.status === 401) {
-          setError("You/'re not authorized")
+          setError("You're not authorized")
         }
       });
   }
@@ -80,7 +79,6 @@ const App = () => {
         }
       })
       .then(data => {
-        // console.log(data.data)
         setPromotionData(data.data)
         setDataLoaded(true)
       })
@@ -94,7 +92,6 @@ const App = () => {
         }
       })
       .then(data => {
-        // console.log(data.data)
         setLeadersData(data.data)
         setDataLoaded(true)
       })
@@ -102,9 +99,19 @@ const App = () => {
 
   useEffect(() => {
 
+    // setInterval(() => {
+    //   getDishes();
+    //   getPromotions();
+    //   getLeaders();
+    // }, 30000)
+
     getDishes();
     getPromotions();
     getLeaders();
+
+    // setInterval(() => {
+    //   console.log('Interval triggered');
+    // }, 60000);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
