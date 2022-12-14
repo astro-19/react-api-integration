@@ -2,6 +2,9 @@
   text-align: center;
   color: #000;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .App table {
@@ -17,10 +20,11 @@
 }
 
 .spinner {
+  position: relative;
   width: 25px;
   padding: 5px;
-  margin-left: 10vh;
-  margin-top: 10vh;
+  left: 50%;
+  top: 50%;
   aspect-ratio: 1;
   border-radius: 50%;
   background: #25b09b;
